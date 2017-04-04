@@ -1,0 +1,38 @@
+
+{{#each result}}
+  {{#if  @first}}
+    <div class="">
+      {{name}}<br>
+      {{address}}<br>
+      {{category}}<br>
+      <hr>
+      {{title}}<br>
+      Reviewer: {{reviewer_name}}<br>
+      Stars: {{stars}}<br>
+      {{review}}<br>
+      <hr>
+    </div>
+    {{else}}
+    <div class="">
+      {{title}}<br>
+      Reviewer: {{reviewer_name}}<br>
+      Stars: {{stars}}<br>
+      {{review}}<br>
+      <hr>
+    </div>
+  {{/if}}
+{{/each}}
+
+<h3>Submit your review below: </h3>
+<form class="" action="/submit_reviews/{{result.0.restaurant_id}}" method="POST">
+  Title of Review: <input type="text" name="title" value=""><br>
+  Stars: <select class="" name="stars">
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select><br>
+  Review: <textarea name="review" rows="8" cols="80"></textarea><br>
+  <input type="submit" name="" value="Submit">
+</form>
