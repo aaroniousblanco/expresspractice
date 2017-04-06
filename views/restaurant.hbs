@@ -1,30 +1,20 @@
 
-{{#each result}}
-  {{#if  @first}}
-    <div class="">
-      {{name}}<br>
-      {{address}}<br>
-      {{category}}<br>
-      <hr>
-      {{title}}<br>
-      Reviewer: {{reviewer_name}}<br>
-      Stars: {{stars}}<br>
-      {{review}}<br>
-      <hr>
-    </div>
-    {{else}}
-    <div class="">
-      {{title}}<br>
-      Reviewer: {{reviewer_name}}<br>
-      Stars: {{stars}}<br>
-      {{review}}<br>
-      <hr>
-    </div>
-  {{/if}}
-{{/each}}
+<h1>{{result.0.name}}</h1>
+<p>Address: {{result.0.address}}</p>
+<p>Category: {{result.0.category}}</p>
+{{#if result.0.review}}
+<!-- the if statement here is basically just checking if reviews exists, if it does it will generate the rest of the data -->
+ <h2>Reviews</h2>
+  {{#each result}}
+    <h3>{{title}}</h3>
+    <p>Author: {{reviewer_name}}</p>
+    <p>Stars: {{stars}}</p>
+    <p>Review: {{review}}</p>
+  {{/each}}
+{{/if}}
 
 <h3>Submit your review below: </h3>
-<form class="" action="/submit_reviews/{{result.0.restaurant_id}}" method="POST">
+<form class="" action="/submit_reviews/{{result.id}}" method="POST">
   Title of Review: <input type="text" name="title" value=""><br>
   Stars: <select class="" name="stars">
           <option value="5">5</option>

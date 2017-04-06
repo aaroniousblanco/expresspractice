@@ -1,22 +1,17 @@
 {
-  "name": "restaurantreviewer",
+  "name": "middlewareexercises",
   "version": "1.0.0",
-  "description": "A basic review app.",
-  "main": "index.js",
+  "description": "",
+  "main": "exercises.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Aaron White",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.2",
-    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "express-flash": "0.0.2",
     "express-session": "^1.15.2",
-    "flash": "^1.1.0",
-    "hbs": "^4.0.1",
-    "pg-promise": "^5.6.4"
+    "fs-promise": "^2.0.2"
   }
 }

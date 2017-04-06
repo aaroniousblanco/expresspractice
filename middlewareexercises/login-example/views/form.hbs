@@ -1,0 +1,10 @@
+
+  {{#if name}}
+    Hello, {{name}}!<br>
+  {{else}}
+    <form action="/submit" method="POST">
+      What is your name?
+      <input type="text" name="name">
+      <button type="submit">Submit</button>
+    </form>
+  {{/if}}

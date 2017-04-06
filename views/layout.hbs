@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
+    {{#if session.userName}}
+      Welcome {{session.userName}}!
+    {{/if}}
     <div class="container">
       <div>{{{body}}}</div>
     </div>
