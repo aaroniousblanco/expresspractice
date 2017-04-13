@@ -31,10 +31,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/search_results', function(req, res, next) {
-  var input = req.query.search;
+  let input = req.query.search;
   db.any(`select * from restaurant where name || category ILIKE $1`, `%${input}%`)
     .then(function(results) {
       res.render('search_results.hbs', {
+        layout: false,
         search: results
       });
     })
@@ -47,7 +48,6 @@ app.get('/restaurant/:id', function(req, res, next) {
   var id = req.params.id;
   db.any(`select restaurant.id, restaurant.name, restaurant.address, restaurant.category, reviews.restaurant_id, reviews.review, reviews.title, reviews.stars from restaurant left outer join reviews on reviews.restaurant_id = restaurant.id where restaurant.id = $1`, id)
     .then(function(result) {
-      console.log(result);
       res.render('restaurant.hbs', {
         result: result
       });
@@ -95,12 +95,13 @@ app.post('/login_submission', function(request, response, next) {
       var loggedInUserId = reviewer.id;
       var username = request.body.username;
       var enteredPassword = request.body.password;
-      return [loggedInUserId, bcrypt.compare(enteredPassword, reviewer.password)] //do I need another spread here? 
-    .spread(function(loggedInUserId, matched) {
+      return [username, loggedInUserId, bcrypt.compare(enteredPassword, reviewer.password)];
+    }) //this spreads the returned values into the next function
+    .spread(function(username, loggedInUserId, matched) {
       console.log('Matched?', matched);
       if (matched) {
         request.session.userName = username;
-        request.session.loggedInUserId = loggedInUserId; //reviewer ID here. This doesn' work yet. How do I spread loggedInUserId into this?
+        request.session.loggedInUserId = loggedInUserId; //reviewer ID here. Insert this into the submit reviews function to tie reviewers to reviews.
       }
     })
     .then(function(){
@@ -113,7 +114,7 @@ app.post('/login_submission', function(request, response, next) {
       });
     });
 });
-});
+
 
 app.get('/', function(request, response, next) {
   response.render('searchbar.hbs');

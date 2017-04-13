@@ -1,9 +1,32 @@
 <body>
-  <div class="">
-    
-  </div>
-  <form action="/search_results" method="GET">
-    <label>Search: </label><input type="text" name="search">
+
+  <form id="search_form" action="/search_results" method="GET">
+    <input type="text" name="search">
+    <button type="submit" name="button">SEARCH</button>
   </form>
-  <input type="submit" name="" value="SEARCH">
+  <label for="">SEARCH RESULTS</label>
+  <div id="search_results"></div>
+  <script type="text/javascript">
+    $('#search_form').keyup(function(event) {
+      event.preventDefault();
+      let input = $('#search_form input').val();
+      if (input === "") {
+        $('#search_results').html(null);
+      } else {
+      //   $.ajax({
+      //     type: "GET",
+      //     url: '/search_results?search=' + input,
+      //     data: resultsHTML
+      //   })
+      //   .then(function (resultsHTML) {
+      //     $('#search_results').html(resultsHTML);
+      //   });
+      // }
+        $.get('/search_results?search=' + input)
+          .then(function (resultsHTML) {
+            $('#search_results').html(resultsHTML);
+          });
+      }
+    });
+  </script>
 </body>
